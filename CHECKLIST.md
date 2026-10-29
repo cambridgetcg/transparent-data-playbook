@@ -1,6 +1,6 @@
 # Transparent Data Playbook: checklist
 
-A self-audit for collecting public information with consent and care. Version 1.0.0, generated from [`playbook.json`](playbook.json) by `tools/check.mjs`; the reasons are in [`PLAYBOOK.md`](PLAYBOOK.md). It is not legal advice and it grants no permission: only the source can do that.
+A self-audit for collecting public information with consent and care. Version 1.0.1, generated from [`playbook.json`](playbook.json) by `tools/check.mjs`; the reasons are in [`PLAYBOOK.md`](PLAYBOOK.md). It is not legal advice and it grants no permission: only the source can do that.
 
 Run the checks per source before you build, again before you switch anything on, whenever a grant or a source's terms change, and at regular review intervals. **Must** items stop the work they guard: checks about permission pass only on facts, and checks about what you build pass on a written design before you build, and only on the built system, verified, before anything is switched on. *Should* items that fail get a written reason. Tick only what you have evidence for; unknown is not a pass.
 

@@ -2,7 +2,7 @@
 
 **Collecting public information with consent and care**
 
-Version 1.0.0, 29 October 2026. Written by AI agents (Claude Code) for Cambridge TCG, from
+Version 1.0.1, 29 October 2026. Written by AI agents (Claude Code) for Cambridge TCG, from
 Cambridge TCG's own collection method, at its owner's request that it be shared with everyone.
 Cambridge TCG dedicates the text to the public domain under [CC0 1.0](LICENSE). **It is not
 legal advice.** Canonical copy:
@@ -612,10 +612,12 @@ as far as its record allowed:
 
 - **Identified collectors.** Requests are built to carry Cambridge's name, a contact address
   and the permission id. CardRush sites are to be read at one request every two seconds per
-  site, with robots.txt read first on every run. TCGplayer is to be read at one request every
-  ten seconds across all its hosts, following the `Crawl-Delay: 10` in its robots.txt, never
-  reading the seller listing pages that robots.txt disallows. A refusal or challenge ends the
-  run as "source unavailable". Each run takes a lease, so two runs never read the same site at
+  site. TCGplayer is to be read at one request every ten seconds across all its hosts, or
+  longer if its robots.txt asks, never reading the seller listing pages that robots.txt
+  disallows. Both read robots.txt first on every run. A refusal or challenge ends the run as
+  "source unavailable"; the next run waits out the source's `Retry-After` (up to seven days),
+  and after three refused runs in a row at one host the collector switches itself off there
+  until a person clears it. Each run takes a lease, so two runs never read the same site at
   once, and no proxy, unlocker, residential address or browser impersonation is used.
 - **Forward-only.** Prices gathered before any permission are not inputs. Once its
   migrations are applied, the database refuses any CardRush or TCGplayer row retrieved before
@@ -648,9 +650,9 @@ as far as its record allowed:
   collectors that read whole catalogues. On 29 October it was reworded, and the new line is
   served: third-party prices are used only as each source permits, and some appear only on
   Cambridge's pages, never in its API or downloads. Health is judged per source by the
-  batches its runs write: a CardRush run that the host refused is still recorded, so CardRush
-  reads failing when no run in its six-hour budget collected anything; a TCGplayer refusal
-  writes nothing, so it reads stale.
+  batches its runs write, and per host by each host's own record of service and refusal: a
+  host refused on recent runs, or one the collector has switched itself off at, makes its
+  source read failing even while another host collects.
 - **A scope question, not assumed.** TCGplayer's pages load their prices through the site's
   own data requests, so the collector reads those requests, one per set at the site's
   Crawl-Delay, instead of rendering thousands of pages. Whether the permission covered that
@@ -658,21 +660,24 @@ as far as its record allowed:
   off until the owner confirmed it the next day.
 - **Revocation.** Each source has its own switch for display and for derived use. Revoking a
   source hides every derived row it fed on the next read.
+- **Images, linked, not copied.** Cambridge's pages can show a CardRush listing's own image at
+  CardRush's own address, credited and linked to the listing, so a reader can check the item
+  against its price. It sits behind a control the reader opens, so CardRush is asked for it
+  only then, and it never enters Cambridge's API or downloads. Official publisher images keep
+  their own recorded lane.
 
 **Where Cambridge falls short of this playbook**, as of 29 October 2026:
 
 - TCGplayer's website terms were not read. Its API terms were, and the written permission is
   the basis.
-- The TCGplayer collector applies a robots.txt reading recorded on 28 October instead of
-  reading it on every run.
-- Neither page collector waits out a `Retry-After` longer than its schedule, or switches
-  itself off when refusals repeat.
-- Health is judged per source, not per host: a CardRush host refused on every run reads
-  healthy while another host collects, and repeated TCGplayer refusals read stale, never
-  failing.
-- The append-only store has no documented, logged deletion step yet. Removal today means
-  revocation, which hides rows but does not delete them.
-- The Cardmarket file reader's User-Agent does not carry a permission id.
+- Waiting out `Retry-After`, switching off after repeated refusals and per-host health are
+  built but not yet running: the database migration they need is not applied, and no
+  collector has run yet.
+- A deletion procedure is written down, but the append-only guards make deletion impossible
+  without a code change that is designed and not built. Removal today means revocation, which
+  hides rows but does not delete them.
+- The CardRush collector keeps its two-second spacing even if robots.txt asks for a longer
+  `Crawl-delay`.
 
 **What it shows.** Reading the terms closed doors that robots.txt would have left open.
 Permission opened them again, on recorded terms. And the permissions are worth more because
