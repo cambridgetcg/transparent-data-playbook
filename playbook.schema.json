@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Transparent Data Playbook",
+  "description": "Schema for playbook.json, the Transparent Data Playbook: a consent-first collection playbook with stable ids for every gate, check and anti-pattern. It has no $id until the canonical repository serves this file at a stable URL. Cross-references (each check's gate matches its parent gate, every id is unique, related_checks and check ids named in the text are real, summary has one step per gate and the same rule as the_one_rule) are not expressible here; tools/check.mjs checks them.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "title", "version", "date", "license", "publisher", "provenance", "canonical_url", "language",
+    "human_text", "checklist", "not_legal_advice", "purpose", "summary", "how_to_use",
+    "the_one_rule", "hard_lines", "gates", "anti_patterns", "case_study", "contributing"
+  ],
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "$ref": "#/$defs/slug" },
+    "title": { "$ref": "#/$defs/text" },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
+      "description": "Semantic version. A change to any check's meaning is a minor or major bump; new checks are minor; wording fixes are patch."
+    },
+    "date": { "type": "string", "format": "date" },
+    "license": { "const": "CC0-1.0" },
+    "publisher": { "$ref": "#/$defs/text", "description": "Who publishes this text and makes its CC0 dedication." },
+    "provenance": { "$ref": "#/$defs/text", "description": "Who wrote the text, from what, and who made which choices." },
+    "canonical_url": {
+      "description": "Where the canonical copy lives.",
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "language": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$" },
+    "human_text": { "$ref": "#/$defs/relativePath" },
+    "checklist": { "$ref": "#/$defs/relativePath" },
+    "not_legal_advice": { "$ref": "#/$defs/text" },
+    "purpose": { "$ref": "#/$defs/text" },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule", "hard_lines", "steps"],
+      "description": "The short version, readable in a minute, exactly as PLAYBOOK.md's 'The short version' section gives it: the one rule, the hard lines, and one line per gate in gate order (the step titles come from gates).",
+      "properties": {
+        "rule": { "type": "string", "minLength": 1, "maxLength": 200, "pattern": "\\S", "description": "The same words as the_one_rule.rule." },
+        "hard_lines": { "type": "string", "minLength": 1, "maxLength": 300, "pattern": "\\S" },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1, "maxLength": 100, "pattern": "\\S" }
+        }
+      }
+    },
+    "how_to_use": { "$ref": "#/$defs/textList" },
+    "the_one_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "rule", "why"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^rule\\.[a-z][a-z0-9]*(-[a-z0-9]+)*$" },
+        "rule": { "$ref": "#/$defs/text" },
+        "why": { "$ref": "#/$defs/text" }
+      }
+    },
+    "hard_lines": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/hardLine" }
+    },
+    "gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/gate" }
+    },
+    "anti_patterns": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/antiPattern" }
+    },
+    "case_study": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "summary", "points"],
+      "properties": {
+        "id": { "$ref": "#/$defs/slug" },
+        "title": { "$ref": "#/$defs/text" },
+        "summary": { "$ref": "#/$defs/text" },
+        "points": { "$ref": "#/$defs/textList" }
+      }
+    },
+    "contributing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["how", "field_report", "never_include"],
+      "properties": {
+        "how": { "$ref": "#/$defs/text" },
+        "field_report": { "$ref": "#/$defs/textList" },
+        "never_include": { "$ref": "#/$defs/textList" }
+      }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "textList": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/text" }
+    },
+    "slug": { "type": "string", "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$" },
+    "relativePath": { "type": "string", "pattern": "^[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*$" },
+    "checkId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*\\.[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+      "description": "<gate id>.<check slug>. Stable: never reused for a different check."
+    },
+    "hardLine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "line", "why", "instead"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^hl\\.[a-z][a-z0-9]*(-[a-z0-9]+)*$" },
+        "line": { "$ref": "#/$defs/text" },
+        "why": { "$ref": "#/$defs/text" },
+        "instead": { "$ref": "#/$defs/text" }
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "number", "title", "summary", "why", "checks"],
+      "properties": {
+        "id": { "$ref": "#/$defs/slug" },
+        "number": { "type": "integer", "minimum": 1 },
+        "title": { "$ref": "#/$defs/text" },
+        "summary": { "$ref": "#/$defs/text" },
+        "why": { "$ref": "#/$defs/text" },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/check" }
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "gate", "level", "short", "question", "why", "pass_if", "evidence_to_record", "if_not"],
+      "properties": {
+        "id": { "$ref": "#/$defs/checkId" },
+        "gate": { "$ref": "#/$defs/slug" },
+        "level": {
+          "enum": ["must", "should"],
+          "description": "must: a failure stops the work this check guards. Checks about permission pass only on facts; checks about what you build pass on a written design before building, and only on the built system, verified, before anything is switched on. should: a failure is recorded with a reason and reviewed."
+        },
+        "short": { "$ref": "#/$defs/text", "description": "The checklist line." },
+        "question": { "$ref": "#/$defs/text" },
+        "why": { "$ref": "#/$defs/text" },
+        "pass_if": { "$ref": "#/$defs/text" },
+        "evidence_to_record": { "$ref": "#/$defs/textList" },
+        "if_not": { "$ref": "#/$defs/text", "description": "What to do when the check does not pass." }
+      }
+    },
+    "antiPattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "what", "why_harmful", "instead"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^ap\\.[a-z][a-z0-9]*(-[a-z0-9]+)*$" },
+        "what": { "$ref": "#/$defs/text" },
+        "why_harmful": { "$ref": "#/$defs/text" },
+        "instead": { "$ref": "#/$defs/text" },
+        "related_checks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/checkId" },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}
