@@ -2,7 +2,7 @@
 
 **Collecting public information with consent and care**
 
-Version 1.0.1, 29 October 2026. Written by AI agents (Claude Code) for Cambridge TCG, from
+Version 1.0.2, 30 October 2026. Written by AI agents (Claude Code) for Cambridge TCG, from
 Cambridge TCG's own collection method, at its owner's request that it be shared with everyone.
 Cambridge TCG dedicates the text to the public domain under [CC0 1.0](LICENSE). **It is not
 legal advice.** Canonical copy:
@@ -663,10 +663,11 @@ as far as its record allowed:
 - **Images, linked, not copied.** Cambridge's pages can show a CardRush listing's own image at
   CardRush's own address, credited and linked to the listing, so a reader can check the item
   against its price. It sits behind a control the reader opens, so CardRush is asked for it
-  only then, and it never enters Cambridge's API or downloads. Official publisher images keep
-  their own recorded lane.
+  only then, and it never enters Cambridge's API or downloads. Official publisher images are a
+  separate lane: copied and self-hosted with credit on the owner's decision, which the
+  shortfalls below record.
 
-**Where Cambridge falls short of this playbook**, as of 29 October 2026:
+**Where Cambridge falls short of this playbook**, as of 30 October 2026:
 
 - TCGplayer's website terms were not read. Its API terms were, and the written permission is
   the basis.
@@ -678,6 +679,10 @@ as far as its record allowed:
   hides rows but does not delete them.
 - The CardRush collector keeps its two-second spacing even if robots.txt asks for a longer
   `Crawl-delay`.
+- English official publisher images are self-hosted with credit and takedown on the owner's
+  decision, and on 30 October the owner decided the same for Japanese ones (none collected
+  yet), although the publisher's site footers refuse reproduction without permission, and
+  Cambridge has not asked the publisher.
 
 **What it shows.** Reading the terms closed doors that robots.txt would have left open.
 Permission opened them again, on recorded terms. And the permissions are worth more because

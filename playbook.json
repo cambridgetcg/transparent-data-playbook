@@ -2,8 +2,8 @@
   "$schema": "./playbook.schema.json",
   "id": "transparent-data-playbook",
   "title": "Transparent Data Playbook: collecting public information with consent and care",
-  "version": "1.0.1",
-  "date": "2026-10-29",
+  "version": "1.0.2",
+  "date": "2026-10-30",
   "license": "CC0-1.0",
   "publisher": "Cambridge TCG",
   "provenance": "Written by AI agents (Claude Code) for Cambridge TCG on 29 October 2026, from Cambridge TCG's own collection method, at its owner's request that it be shared with everyone. The agents chose the CC0 dedication to fit that request.",
@@ -1271,8 +1271,8 @@
       "Everything ships switched off. Descriptions that read as if collectors ran were rewritten. The public data-rights line \"we don't copy anyone's whole database\" no longer fit whole-catalogue collectors; on 29 October 2026 it was reworded, and the new line is served: third-party prices are used only as each source permits, some only on Cambridge's pages. Health is judged per source by the batches its runs write, and per host by each host's own record of service and refusal: a host refused on recent runs, or one the collector has switched itself off at, makes its source read failing even while another host collects.",
       "Whether the permission covered reading TCGplayer's own page-data requests (one per set, at its Crawl-Delay) was put back to the person who holds the email rather than assumed, and the collector stayed off while the question was open.",
       "Each source has its own revocation switch for display and derived use; revoking hides every derived row the source fed on the next read.",
-      "Images are linked, not copied. Cambridge's pages can show a CardRush listing's own image at CardRush's own address, credited and linked to the listing, so a reader can check the item against its price. It sits behind a control the reader opens, so CardRush is asked for it only then, and it never enters Cambridge's API or downloads. Official publisher images keep their own recorded lane.",
-      "Where Cambridge falls short of this playbook, as of 29 October 2026: TCGplayer's website terms were not read (its API terms were, and the written permission is the basis); waiting out Retry-After, switching off after repeated refusals and per-host health are built but not yet running, because the database migration they need is not applied and no collector has run yet; a deletion procedure is written down, but the append-only guards make deletion impossible without a code change that is designed and not built, so removal today means revocation, which hides rows; and the CardRush collector keeps its two-second spacing even if robots.txt asks for a longer Crawl-delay."
+      "Images are linked, not copied. Cambridge's pages can show a CardRush listing's own image at CardRush's own address, credited and linked to the listing, so a reader can check the item against its price. It sits behind a control the reader opens, so CardRush is asked for it only then, and it never enters Cambridge's API or downloads. Official publisher images are a separate lane: copied and self-hosted with credit on the owner's decision, which the shortfalls below record.",
+      "Where Cambridge falls short of this playbook, as of 30 October 2026: TCGplayer's website terms were not read (its API terms were, and the written permission is the basis); waiting out Retry-After, switching off after repeated refusals and per-host health are built but not yet running, because the database migration they need is not applied and no collector has run yet; a deletion procedure is written down, but the append-only guards make deletion impossible without a code change that is designed and not built, so removal today means revocation, which hides rows; the CardRush collector keeps its two-second spacing even if robots.txt asks for a longer Crawl-delay; and English official publisher images are self-hosted with credit and takedown on the owner's decision, and on 30 October the owner decided the same for Japanese ones (none collected yet), although the publisher's site footers refuse reproduction without permission and Cambridge has not asked the publisher."
     ]
   },
   "contributing": {
