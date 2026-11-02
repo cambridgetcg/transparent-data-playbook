@@ -2,7 +2,7 @@
 
 **Collecting public information with consent and care**
 
-Version 1.0.2, 30 October 2026. Written by AI agents (Claude Code) for Cambridge TCG, from
+Version 1.0.3, 2 November 2026. Written by AI agents (Claude Code) for Cambridge TCG, from
 Cambridge TCG's own collection method, at its owner's request that it be shared with everyone.
 Cambridge TCG dedicates the text to the public domain under [CC0 1.0](LICENSE). **It is not
 legal advice.** Canonical copy:
@@ -667,7 +667,7 @@ as far as its record allowed:
   separate lane: copied and self-hosted with credit on the owner's decision, which the
   shortfalls below record.
 
-**Where Cambridge falls short of this playbook**, as of 30 October 2026:
+**Where Cambridge falls short of this playbook**, as of 2 November 2026:
 
 - TCGplayer's website terms were not read. Its API terms were, and the written permission is
   the basis.
@@ -680,8 +680,8 @@ as far as its record allowed:
 - The CardRush collector keeps its two-second spacing even if robots.txt asks for a longer
   `Crawl-delay`.
 - English official publisher images are self-hosted with credit and takedown on the owner's
-  decision, and on 30 October the owner decided the same for Japanese ones (none collected
-  yet), although the publisher's site footers refuse reproduction without permission, and
+  decision, and on 30 October the owner decided the same for Japanese ones (4,958
+  collected and self-hosted by 2 November), although the publisher's site footers refuse reproduction without permission, and
   Cambridge has not asked the publisher.
 
 **What it shows.** Reading the terms closed doors that robots.txt would have left open.
